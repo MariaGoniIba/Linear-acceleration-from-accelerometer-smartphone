@@ -21,18 +21,18 @@ for i in attitude:
     z = np.append(z, i['z'])
     w = np.append(w, i['w'])
 
-# Plot attitude
-plt.figure()
-plt.plot(x, label='x'); plt.plot(y, label='y'); plt.plot(z, label='z')
-plt.xlim(0)
-plt.title('Attitude')
-plt.xlabel('Samples')
-plt.legend()
-
 # Quaternion representing the attitude of the smartphone
 q = np.array([x, y, z, w])
 
 q_filt = f_filters.LPfilter(q, data['timestamp'])  # LPF
+
+# Plot attitude
+plt.figure()
+plt.plot(q_filt[0], label='x'); plt.plot(q_filt[1], label='y'); plt.plot(q_filt[2], label='z'); plt.plot(q_filt[3], label='w')
+plt.xlim(0, len(q_filt[0]) - 1)
+plt.title('Attitude data (x, y, z, w)')
+plt.xlabel('Samples')
+plt.legend()
 
 # User acceleration in Gs units
 UA = data['userAcceleration']
@@ -49,7 +49,7 @@ user_acceleration_filt = f_filters.LPfilter(user_acceleration, data['timestamp']
 # Plot user acceleration
 plt.figure()
 plt.plot(user_acceleration_filt[0], label='x'); plt.plot(user_acceleration_filt[1], label='y'); plt.plot(user_acceleration_filt[2], label='z')
-plt.xlim(0)
+plt.xlim(0, len(user_acceleration_filt[0]) - 1)
 plt.title('User acceleration')
 plt.xlabel('Samples')
 plt.legend()
@@ -69,7 +69,7 @@ gravity_filt = f_filters.LPfilter(gravity, data['timestamp'])  # LPF
 # Plot gravity
 plt.figure()
 plt.plot(gravity_filt[0], label='x'); plt.plot(gravity_filt[1], label='y'); plt.plot(gravity_filt[2], label='z')
-plt.xlim(0)
+plt.xlim(0, len(gravity_filt[0]) - 1)
 plt.title('Gravity')
 plt.xlabel('Samples')
 plt.legend()
@@ -99,7 +99,7 @@ linear_acceleration_filt = f_filters.HPfilter(linear_acceleration, data['timesta
 # Plot linear acceleration
 plt.figure()
 plt.plot(linear_acceleration_filt[0], label='x'); plt.plot(linear_acceleration_filt[1], label='y'); plt.plot(linear_acceleration_filt[2], label='z')
-plt.xlim(0)
+plt.xlim(0, len(linear_acceleration_filt[0]) - 1)
 plt.title('Linear acceleration')
 plt.xlabel('Samples')
 plt.legend()
