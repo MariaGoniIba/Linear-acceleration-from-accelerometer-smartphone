@@ -30,7 +30,7 @@ I apply the LPF to remove high-frequency noise from the signal before computing 
 * <ins>Step 5</ins>: Filter the resulting acceleration with a 3rd order Butterworth high-pass filter (HPF) with 0.3Hz cutoff frequency.
 
 I use the HPF to remove low-frequency noise or drift from the signal.
-The reason to apply it after computing the linear acceleration, is because the low-frequency noise or drift can also affect the acceleration estimate, 
+The reason to apply it after computing the linear acceleration, is because the low-frequency noise or drift can affect the acceleration estimate, 
 and removing it beforehand could bias the acceleration estimation.
 
 ## Script
@@ -53,7 +53,7 @@ q = np.array([x, y, z, w])
 q_filt = f_filters.LPfilter(q, data['timestamp'])
 ```
 <p align="center">
-    <img width="600" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_1.png">
+    <img width="1000" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_1.png">
 </p>
 
 I do the same with the user_acceleration data.
@@ -70,7 +70,7 @@ user_acceleration = np.array([x_accel, y_accel, z_accel])
 user_acceleration_filt = f_filters.LPfilter(user_acceleration, data['timestamp'])
 ```
 <p align="center">
-    <img width="600" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_2.png">
+    <img width="1000" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_2.png">
 </p>
 
 And the same with the gravity vector.
@@ -87,7 +87,7 @@ gravity = np.array([x_gravity, y_gravity, z_gravity])
 gravity_filt = f_filters.LPfilter(gravity, data['timestamp']) 
 ```
 <p align="center">
-    <img width="600" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_3.png">
+    <img width="1000" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_3.png">
 </p>
 
 * <ins>Step 2</ins>: Convert the quaternion vector to a rotation matrix using the following formula:
@@ -116,5 +116,5 @@ linear_acceleration = user_acceleration_filt - g_device
 linear_acceleration_filt = f_filters.HPfilter(linear_acceleration, data['timestamp'])
 ```
 <p align="center">
-    <img width="600" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_4.png">
+    <img width="1000" src="https://github.com/MariaGoniIba/Linear-acceleration-from-accelerometer-smartphone/blob/main/Figure_4.png">
 </p>
